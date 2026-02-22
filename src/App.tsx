@@ -200,6 +200,56 @@ export default function App() {
   const changelog = [
     { 
       date: '2026-02-21', 
+      version: 'v1.6.0',
+      codename: 'NEON_CORE_REWRITE',
+      publicTitle: 'The Official Format Standard',
+      category: 'Systems Patch / UI Standard',
+      overview: 'This update introduces the Official Update Report format, establishing a new standard for transparency and structured growth in Neon Tycoon development.',
+      sections: [
+        { title: '1️⃣ RELEASE IDENTIFICATION', items: [
+          'Version: v1.6.0',
+          'Update Codename: NEON_CORE_REWRITE',
+          'Public Title: "The Official Format Standard"',
+          'Release Date: 21 / 02 / 2026',
+          'Update Category: Systems Patch / UI Standard'
+        ] },
+        { title: '2️⃣ STRATEGIC OVERVIEW', items: [
+          'Core Objective: Standardize update communication and documentation.',
+          'Player Impact: Clearer understanding of changes and long-term vision.',
+          'Direction: Moving towards a more professional and transparent development cycle.'
+        ] },
+        { title: '3️⃣ PRIMARY FEATURE DROP', items: [
+          '⭐ Official Format Standard: A permanent, flagship studio standard for all future updates.',
+          '⭐ Enhanced Modal Rendering: Improved UI for displaying complex update reports.'
+        ] },
+        { title: '5️⃣ CORE GAMEPLAY EVOLUTION', items: [
+          '⚙️ Quality of Life: Streamlined the update log interaction loop.',
+          '🎮 Mechanical Refinements: Adjusted modal scrolling and height for better readability.'
+        ] },
+        { title: '7️⃣ TECHNICAL & INFRASTRUCTURE REPORT', items: [
+          '🧠 Backend: Optimized changelog data structure for scalability.',
+          '💾 Data Integrity: Improved rendering reliability for multi-section logs.'
+        ] },
+        { title: '17️⃣ INTERNAL BUILD DATA', items: [
+          'Build ID: NT-160-LIVE',
+          'Environment: Live',
+          'Approval Status: Verified'
+        ] }
+      ],
+      closing: 'Thank you for being part of NEON TYCOON. We remain committed to delivering structured growth, long-term support, and meaningful innovation.'
+    },
+    { 
+      date: '2026-02-21', 
+      version: 'v1.5.0', 
+      sections: [
+        { title: 'UI Enhancements', items: [
+          'Added vertical scrolling to the update log modal for better content management',
+          'Optimized modal height for various screen sizes'
+        ] }
+      ] 
+    },
+    { 
+      date: '2026-02-21', 
       version: 'v1.4.0', 
       sections: [
         { title: 'Legal & Support', items: [
@@ -290,39 +340,73 @@ export default function App() {
               initial={{ scale: 0.9, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
               exit={{ scale: 0.9, opacity: 0 }}
-              className="bg-[#121214] border border-white/10 rounded-3xl p-8 max-w-md w-full shadow-2xl"
+              className="bg-[#121214] border border-white/10 rounded-3xl p-6 sm:p-8 max-w-2xl w-full shadow-2xl overflow-hidden flex flex-col max-h-[90vh]"
               onClick={e => e.stopPropagation()}
             >
-              <h2 className="text-2xl font-bold mb-6">What's New</h2>
-              <div className="space-y-6">
-                <div className="space-y-4">
-                  <div className="flex items-center justify-between border-b border-white/5 pb-2">
-                    <span className="text-emerald-400 font-bold">{newestLog.version}</span>
-                    <span className="text-xs text-white/20 font-mono">{newestLog.date}</span>
-                  </div>
-                  
-                  <div className="space-y-4">
-                    {newestLog.sections.map((section, i) => (
-                      <div key={i} className="space-y-2">
-                        <h3 className="text-[10px] uppercase tracking-widest text-white/30 font-bold">{section.title}</h3>
-                        <ul className="space-y-1.5">
-                          {section.items.map((item, j) => (
-                            <li key={j} className="text-sm text-white/60 flex items-start gap-2">
-                              <div className="w-1 h-1 bg-emerald-500 rounded-full mt-1.5 shrink-0" />
-                              <span>{item}</span>
-                            </li>
-                          ))}
-                        </ul>
-                      </div>
-                    ))}
-                  </div>
+              <div className="flex items-center justify-between mb-6 shrink-0">
+                <div>
+                  <h2 className="text-2xl font-bold">OFFICIAL UPDATE REPORT</h2>
+                  <p className="text-[10px] uppercase tracking-[0.2em] text-white/40 font-mono">Published by NEON TYCOON INDUSTRIES</p>
+                </div>
+                <div className="text-right">
+                  <span className="text-emerald-400 font-bold font-mono">{newestLog.version}</span>
                 </div>
               </div>
+
+              <div className="space-y-8 overflow-y-auto pr-4 no-scrollbar flex-1">
+                {/* Header Section if exists */}
+                {newestLog.publicTitle && (
+                  <div className="border-y border-white/5 py-6 space-y-2">
+                    <p className="text-center text-xs text-white/40 font-mono uppercase tracking-widest">Public Title</p>
+                    <h3 className="text-center text-3xl font-black text-emerald-400 italic">"{newestLog.publicTitle}"</h3>
+                  </div>
+                )}
+
+                {/* Strategic Overview if exists */}
+                {newestLog.overview && (
+                  <div className="space-y-4">
+                    <h3 className="text-xs font-bold border-l-2 border-emerald-500 pl-3 uppercase tracking-widest text-white/60">Strategic Overview</h3>
+                    <p className="text-sm text-white/50 leading-relaxed italic">{newestLog.overview}</p>
+                  </div>
+                )}
+
+                {/* Main Sections */}
+                <div className="space-y-8">
+                  {newestLog.sections.map((section, i) => (
+                    <div key={i} className="space-y-3">
+                      <h3 className="text-xs font-black uppercase tracking-[0.15em] text-white/30 bg-white/5 px-3 py-1.5 rounded-lg w-fit">
+                        {section.title}
+                      </h3>
+                      <ul className="space-y-2 pl-1">
+                        {section.items.map((item, j) => (
+                          <li key={j} className="text-sm text-white/60 flex items-start gap-3 group">
+                            <div className="w-1.5 h-1.5 bg-emerald-500/50 rounded-full mt-1.5 shrink-0 group-hover:bg-emerald-500 transition-colors" />
+                            <span className="leading-relaxed">{item}</span>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  ))}
+                </div>
+
+                {/* Closing if exists */}
+                {newestLog.closing && (
+                  <div className="pt-8 border-t border-white/5 text-center space-y-4">
+                    <p className="text-sm text-white/40 italic leading-relaxed px-8">
+                      {newestLog.closing}
+                    </p>
+                    <p className="text-[10px] uppercase tracking-widest text-emerald-400 font-bold">
+                      — The NEON TYCOON Development Team
+                    </p>
+                  </div>
+                )}
+              </div>
+
               <button 
                 onClick={() => setShowChangelog(false)}
-                className="w-full mt-8 py-3 bg-white text-black font-bold rounded-xl hover:bg-white/90 transition-colors"
+                className="w-full mt-8 py-4 bg-white text-black font-black uppercase tracking-widest rounded-xl hover:bg-emerald-400 transition-all active:scale-[0.98] shrink-0"
               >
-                Close
+                Acknowledge Report
               </button>
             </motion.div>
           </motion.div>
