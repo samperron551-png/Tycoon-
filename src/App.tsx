@@ -188,6 +188,8 @@ export default function App() {
   };
 
   const [showChangelog, setShowChangelog] = useState(false);
+  const [showSupport, setShowSupport] = useState(false);
+  const [showTerms, setShowTerms] = useState(false);
 
   const formatMoney = (val: number) => {
     if (val >= 1000000) return `$${(val / 1000000).toFixed(2)}M`;
@@ -198,32 +200,69 @@ export default function App() {
   const changelog = [
     { 
       date: '2026-02-21', 
+      version: 'v1.4.0', 
+      sections: [
+        { title: 'Legal & Support', items: [
+          'Added comprehensive Terms of Service modal',
+          'Implemented dedicated Support & FAQ system',
+          'Updated footer with interactive legal and help links'
+        ] }
+      ] 
+    },
+    { 
+      date: '2026-02-21', 
       version: 'v1.3.0', 
       sections: [
-        { title: 'New Features', items: ['Sectioned update logs for better readability'] },
-        { title: 'UI/UX', items: ['Enhanced modal layout for changelogs'] }
+        { title: 'New Features', items: [
+          'Implemented a sectioned update log system for better information hierarchy',
+          'Added automatic version tracking to the main application state',
+          'Integrated a new "What\'s New" modal that triggers from the footer'
+        ] },
+        { title: 'UI/UX', items: [
+          'Redesigned the changelog modal with a modern, high-contrast industrial aesthetic',
+          'Added smooth entry and exit animations using motion/react',
+          'Improved typography with Inter and JetBrains Mono pairings'
+        ] }
       ] 
     },
     { 
       date: '2026-02-21', 
       version: 'v1.2.0', 
       sections: [
-        { title: 'System', items: ['Refined update log system', 'Performance optimizations'] },
-        { title: 'UI', items: ['UI layout improvements'] }
+        { title: 'System', items: [
+          'Optimized the core game loop to run at a consistent 10Hz for smooth income generation',
+          'Implemented local storage persistence to ensure progress is saved across sessions',
+          'Added a background synchronization system for the global leaderboard'
+        ] },
+        { title: 'UI', items: [
+          'Refined the machine cards with better visual feedback for affordance',
+          'Implemented a tab-based navigation system to separate machines, expansions, and rankings',
+          'Added glowing neon effects to primary action buttons'
+        ] }
       ] 
     },
     { 
       date: '2026-02-21', 
       version: 'v1.1.0', 
       sections: [
-        { title: 'Mobile', items: ['Added mobile support', 'Improved touch targets', 'Responsive layout optimizations'] }
+        { title: 'Mobile', items: [
+          'Added a fully responsive layout that adapts from mobile to ultra-wide desktops',
+          'Increased touch targets to 44px minimum for better mobile playability',
+          'Implemented horizontal scrolling for navigation tabs on small screens',
+          'Optimized font sizes and spacing for compact mobile displays'
+        ] }
       ] 
     },
     { 
       date: '2026-02-21', 
       version: 'v1.0.0', 
       sections: [
-        { title: 'Core', items: ['Initial release', 'Core tycoon mechanics', 'Multiplayer leaderboard', 'Prestige system'] }
+        { title: 'Core', items: [
+          'Launched the initial version of Neon Tycoon: Automation Empire',
+          'Developed 5 unique machine tiers with scaling costs and income rates',
+          'Built a real-time global leaderboard using WebSockets and SQLite',
+          'Implemented a prestige system allowing players to reset for permanent multipliers'
+        ] }
       ] 
     },
   ];
@@ -279,6 +318,105 @@ export default function App() {
                 className="w-full mt-8 py-3 bg-white text-black font-bold rounded-xl hover:bg-white/90 transition-colors"
               >
                 Close
+              </button>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      {/* Support Modal */}
+      <AnimatePresence>
+        {showSupport && (
+          <motion.div 
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-[100] bg-black/80 backdrop-blur-sm flex items-center justify-center p-6"
+            onClick={() => setShowSupport(false)}
+          >
+            <motion.div 
+              initial={{ scale: 0.9, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              exit={{ scale: 0.9, opacity: 0 }}
+              className="bg-[#121214] border border-white/10 rounded-3xl p-8 max-w-md w-full shadow-2xl"
+              onClick={e => e.stopPropagation()}
+            >
+              <h2 className="text-2xl font-bold mb-6">Support Center</h2>
+              <div className="space-y-6">
+                <div className="space-y-4">
+                  <div className="space-y-2">
+                    <h3 className="text-[10px] uppercase tracking-widest text-white/30 font-bold">Frequently Asked Questions</h3>
+                    <div className="space-y-4">
+                      <div>
+                        <p className="text-sm font-bold text-emerald-400 mb-1">How do I save my progress?</p>
+                        <p className="text-xs text-white/60">Your progress is automatically saved to your browser's local storage and synced with our servers every few seconds.</p>
+                      </div>
+                      <div>
+                        <p className="text-sm font-bold text-emerald-400 mb-1">What is Prestige?</p>
+                        <p className="text-xs text-white/60">Prestige resets your current money and machines in exchange for a permanent income multiplier. It unlocks after earning $100K total.</p>
+                      </div>
+                      <div>
+                        <p className="text-sm font-bold text-emerald-400 mb-1">Found a bug?</p>
+                        <p className="text-xs text-white/60">Please report any issues to our community discord or via email at support@neontycoon.com.</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <button 
+                onClick={() => setShowSupport(false)}
+                className="w-full mt-8 py-3 bg-white text-black font-bold rounded-xl hover:bg-white/90 transition-colors"
+              >
+                Got it
+              </button>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      {/* Terms Modal */}
+      <AnimatePresence>
+        {showTerms && (
+          <motion.div 
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-[100] bg-black/80 backdrop-blur-sm flex items-center justify-center p-6"
+            onClick={() => setShowTerms(false)}
+          >
+            <motion.div 
+              initial={{ scale: 0.9, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              exit={{ scale: 0.9, opacity: 0 }}
+              className="bg-[#121214] border border-white/10 rounded-3xl p-8 max-w-md w-full shadow-2xl"
+              onClick={e => e.stopPropagation()}
+            >
+              <h2 className="text-2xl font-bold mb-6">Terms of Service</h2>
+              <div className="space-y-6 max-h-[400px] overflow-y-auto pr-2 no-scrollbar">
+                <div className="space-y-4">
+                  <div className="space-y-2">
+                    <h3 className="text-[10px] uppercase tracking-widest text-white/30 font-bold">1. Acceptance of Terms</h3>
+                    <p className="text-xs text-white/60 leading-relaxed">By accessing Neon Tycoon, you agree to be bound by these terms. This is a simulation game provided for entertainment purposes only.</p>
+                  </div>
+                  <div className="space-y-2">
+                    <h3 className="text-[10px] uppercase tracking-widest text-white/30 font-bold">2. Virtual Currency</h3>
+                    <p className="text-xs text-white/60 leading-relaxed">All in-game currency ($) is virtual and has no real-world value. It cannot be exchanged for real money or other real-world goods.</p>
+                  </div>
+                  <div className="space-y-2">
+                    <h3 className="text-[10px] uppercase tracking-widest text-white/30 font-bold">3. Fair Play</h3>
+                    <p className="text-xs text-white/60 leading-relaxed">Users agree not to use scripts, bots, or any automated tools to gain an unfair advantage. We reserve the right to reset progress for accounts found in violation.</p>
+                  </div>
+                  <div className="space-y-2">
+                    <h3 className="text-[10px] uppercase tracking-widest text-white/30 font-bold">4. Data Privacy</h3>
+                    <p className="text-xs text-white/60 leading-relaxed">We store minimal data (username and game state) to provide the leaderboard and persistence features. We do not sell your data to third parties.</p>
+                  </div>
+                </div>
+              </div>
+              <button 
+                onClick={() => setShowTerms(false)}
+                className="w-full mt-8 py-3 bg-white text-black font-bold rounded-xl hover:bg-white/90 transition-colors"
+              >
+                I Accept
               </button>
             </motion.div>
           </motion.div>
@@ -559,8 +697,8 @@ export default function App() {
         <p className="text-xs text-white/20 font-mono">© 2026 NEON TYCOON INDUSTRIES. ALL RIGHTS RESERVED.</p>
         <div className="flex gap-6">
           <button onClick={() => setShowChangelog(true)} className="text-xs text-white/20 hover:text-white/40 transition-colors cursor-pointer">CHANGELOG</button>
-          <a href="#" className="text-xs text-white/20 hover:text-white/40 transition-colors">SUPPORT</a>
-          <a href="#" className="text-xs text-white/20 hover:text-white/40 transition-colors">TERMS</a>
+          <button onClick={() => setShowSupport(true)} className="text-xs text-white/20 hover:text-white/40 transition-colors cursor-pointer">SUPPORT</button>
+          <button onClick={() => setShowTerms(true)} className="text-xs text-white/20 hover:text-white/40 transition-colors cursor-pointer">TERMS</button>
         </div>
       </footer>
     </div>
