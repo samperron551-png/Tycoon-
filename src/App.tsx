@@ -196,9 +196,39 @@ export default function App() {
   };
 
   const changelog = [
-    { date: '2026-02-21', version: 'v1.1.0', changes: ['Added mobile support', 'Improved touch targets', 'Responsive layout optimizations'] },
-    { date: '2026-02-21', version: 'v1.0.0', changes: ['Initial release', 'Core tycoon mechanics', 'Multiplayer leaderboard', 'Prestige system'] },
+    { 
+      date: '2026-02-21', 
+      version: 'v1.3.0', 
+      sections: [
+        { title: 'New Features', items: ['Sectioned update logs for better readability'] },
+        { title: 'UI/UX', items: ['Enhanced modal layout for changelogs'] }
+      ] 
+    },
+    { 
+      date: '2026-02-21', 
+      version: 'v1.2.0', 
+      sections: [
+        { title: 'System', items: ['Refined update log system', 'Performance optimizations'] },
+        { title: 'UI', items: ['UI layout improvements'] }
+      ] 
+    },
+    { 
+      date: '2026-02-21', 
+      version: 'v1.1.0', 
+      sections: [
+        { title: 'Mobile', items: ['Added mobile support', 'Improved touch targets', 'Responsive layout optimizations'] }
+      ] 
+    },
+    { 
+      date: '2026-02-21', 
+      version: 'v1.0.0', 
+      sections: [
+        { title: 'Core', items: ['Initial release', 'Core tycoon mechanics', 'Multiplayer leaderboard', 'Prestige system'] }
+      ] 
+    },
   ];
+
+  const newestLog = changelog[0];
 
   return (
     <div className="min-h-screen bg-[#0A0A0B] text-white font-sans selection:bg-emerald-500/30">
@@ -219,24 +249,30 @@ export default function App() {
               className="bg-[#121214] border border-white/10 rounded-3xl p-8 max-w-md w-full shadow-2xl"
               onClick={e => e.stopPropagation()}
             >
-              <h2 className="text-2xl font-bold mb-6">Changelog</h2>
+              <h2 className="text-2xl font-bold mb-6">What's New</h2>
               <div className="space-y-6">
-                {changelog.map((entry, i) => (
-                  <div key={i} className="space-y-2">
-                    <div className="flex items-center justify-between">
-                      <span className="text-emerald-400 font-bold">{entry.version}</span>
-                      <span className="text-xs text-white/20 font-mono">{entry.date}</span>
-                    </div>
-                    <ul className="space-y-1">
-                      {entry.changes.map((change, j) => (
-                        <li key={j} className="text-sm text-white/60 flex items-center gap-2">
-                          <div className="w-1 h-1 bg-emerald-500 rounded-full" />
-                          {change}
-                        </li>
-                      ))}
-                    </ul>
+                <div className="space-y-4">
+                  <div className="flex items-center justify-between border-b border-white/5 pb-2">
+                    <span className="text-emerald-400 font-bold">{newestLog.version}</span>
+                    <span className="text-xs text-white/20 font-mono">{newestLog.date}</span>
                   </div>
-                ))}
+                  
+                  <div className="space-y-4">
+                    {newestLog.sections.map((section, i) => (
+                      <div key={i} className="space-y-2">
+                        <h3 className="text-[10px] uppercase tracking-widest text-white/30 font-bold">{section.title}</h3>
+                        <ul className="space-y-1.5">
+                          {section.items.map((item, j) => (
+                            <li key={j} className="text-sm text-white/60 flex items-start gap-2">
+                              <div className="w-1 h-1 bg-emerald-500 rounded-full mt-1.5 shrink-0" />
+                              <span>{item}</span>
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+                    ))}
+                  </div>
+                </div>
               </div>
               <button 
                 onClick={() => setShowChangelog(false)}
