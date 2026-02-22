@@ -203,9 +203,14 @@ export default function App() {
       version: 'v1.4.0', 
       sections: [
         { title: 'Legal & Support', items: [
-          'Added comprehensive Terms of Service modal',
-          'Implemented dedicated Support & FAQ system',
-          'Updated footer with interactive legal and help links'
+          'Added comprehensive Terms of Service modal with detailed sections on virtual currency and fair play',
+          'Implemented dedicated Support & FAQ system to help players with common issues',
+          'Updated footer with interactive legal and help links for better accessibility',
+          'Added contact information for bug reporting and community support'
+        ] },
+        { title: 'Infrastructure', items: [
+          'Enhanced data synchronization reliability between client and server',
+          'Improved local storage error handling for better save game stability'
         ] }
       ] 
     },
